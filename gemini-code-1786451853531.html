@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ms Lê Hằng English - IELTS Reading Mock Test</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-pink: #ff80ab;
+      --primary-purple: #8854c0;
+      --accent-teal: #00C9A7;
+      --accent-yellow: #FDCB6E;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --correct-color: #00D26A;
+      --wrong-color: #FF4757;
+      --highlight-bg: #d1c4e9;
+      --highlight-color: #ffffff;
+      --text-dark: #2d3436;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* Khóa cuộn trang chính để tạo 2 cột cuộn độc lập */
+    }
+
+    body {
+      background: linear-gradient(-45deg, #ff80ab, #8854c0, #00C9A7, #FDCB6E, #ffcdd2, #e1bee7);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><text x="10" y="30" font-size="22">📚</text><text x="70" y="35" font-size="20">🎨</text><text x="20" y="85" font-size="20">♿</text><text x="80" y="90" font-size="22">💼</text><text x="50" y="60" font-size="18">🌟</text></svg>');
+      opacity: 0.22;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 3px solid #f8bbd0;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .brand-title h1 {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--primary-purple);
+      line-height: 1.2;
+    }
+
+    .brand-title h2 {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #e91e63;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .timer-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      padding: 4px 14px;
+      border-radius: 25px;
+      box-shadow: 0 3px 0 #e0e0e0;
+      border: 2px solid #f0f0f0;
+    }
+
+    .timer-display {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #d81b60;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .btn-timer {
+      background: var(--primary-pink);
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #d81b60;
+      transition: all 0.2s ease;
+      font-size: 0.8rem;
+    }
+
+    .btn-timer:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 0 #d81b60;
+    }
+
+    .progress-bar-wrapper {
+      width: 100%;
+      background: #e0e0e0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-yellow), var(--correct-color));
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .tab-bar {
+      display: flex;
+      background: rgba(255,255,255,0.7);
+      padding: 6px 20px 0;
+      gap: 8px;
+      z-index: 9;
+      flex-shrink: 0;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      background: #fff;
+      border: 2px solid #f8bbd0;
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      font-weight: 800;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: var(--primary-purple);
+      color: white;
+      border-color: var(--primary-purple);
+      transform: translateY(-2px);
+    }
+
+    /* BỐ CỤC CHÍNH ĐẢM BẢO HAI CỘT CUỘN ĐỘC LẬP */
+    .main-container {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      gap: 15px;
+      padding: 10px 15px 15px;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .split-pane {
+      flex: 1;
+      height: 100%;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border: 3px solid #fff;
+      overflow-y: scroll; /* THANH TRUỜT DỌC ĐỘC LẬP TỪNG PHẦN */
+      padding: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .split-pane::-webkit-scrollbar {
+      width: 10px;
+    }
+    .split-pane::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 10px;
+    }
+    .split-pane::-webkit-scrollbar-thumb {
+      background: var(--primary-pink);
+      border-radius: 10px;
+      border: 2px solid #fff;
+    }
+    .split-pane::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-purple);
+    }
+
+    .passage-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--primary-purple);
+      margin-bottom: 12px;
+      text-align: center;
+      border-bottom: 2px dashed #f8bbd0;
+      padding-bottom: 8px;
+    }
+
+    .paragraph-block {
+      margin-bottom: 16px;
+      background: #fff;
+      padding: 14px;
+      border-radius: 15px;
+      border: 2px solid #f3e5f5;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.02);
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    .trans-toggle-btn {
+      margin-top: 8px;
+      background: #f3e5f5;
+      color: #6a1b9a;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .trans-toggle-btn:hover {
+      background: #e1bee7;
+    }
+
+    .translation-text {
+      display: none;
+      margin-top: 8px;
+      padding: 10px;
+      background: #fce4ec;
+      border-left: 4px solid var(--primary-pink);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #4a148c;
+      line-height: 1.6;
+    }
+
+    .sentence-target {
+      background-color: #fff59d !important;
+      border-radius: 4px;
+      padding: 2px 4px;
+      box-shadow: 0 0 10px #fbc02d;
+      animation: pulseHighlight 2s infinite;
+    }
+
+    @keyframes pulseHighlight {
+      0% { background-color: #fff59d; }
+      50% { background-color: #ffe082; }
+      100% { background-color: #fff59d; }
+    }
+
+    ::selection {
+      background-color: #d1c4e9;
+      color: #ffffff;
+    }
+
+    .custom-highlight {
+      background-color: #d1c4e9 !important;
+      color: #ffffff !important;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 1px 3px;
+    }
+
+    /* CSS Visual Signs Drawing */
+    .sign-card-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 15px 0;
+      border: 2px dashed #ce93d8;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .handicapped-sign {
+      border: 3px solid #2d3436;
+      border-radius: 12px;
+      padding: 12px;
+      background: #ffffff;
+      text-align: center;
+      max-width: 220px;
+      width: 100%;
+      box-shadow: 0 4px 0 #2d3436;
+    }
+
+    .handicapped-circle-red {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      border: 8px solid #d63031;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      position: relative;
+    }
+
+    .handicapped-circle-red::before {
+      content: "";
+      position: absolute;
+      width: 55px;
+      height: 7px;
+      background: #d63031;
+      transform: rotate(-45deg);
+    }
+
+    .handicapped-icon-box {
+      background: #0984e3;
+      color: white;
+      border-radius: 8px;
+      padding: 6px;
+      font-size: 1.8rem;
+      margin-top: 5px;
+    }
+
+    .handicapped-text {
+      font-weight: 900;
+      font-size: 0.75rem;
+      margin-top: 4px;
+      color: #2d3436;
+    }
+
+    .notice-note-card {
+      background: #fffde7;
+      border: 2px solid #ffe082;
+      border-radius: 12px;
+      padding: 15px;
+      max-width: 320px;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .glossary-section {
+      margin-top: 25px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 15px;
+      border: 2px solid #e1bee7;
+    }
+
+    .glossary-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary-purple);
+      margin-bottom: 12px;
+    }
+
+    .glossary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .glossary-table th, .glossary-table td {
+      border: 1px solid #f8bbd0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .glossary-table th {
+      background: #f8bbd0;
+      color: #8854c0;
+      font-weight: 800;
+    }
+
+    .glossary-table tr:nth-child(even) {
+      background: #fcf4f8;
+    }
+
+    .question-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+      border: 3px solid #f0f0f0;
+      box-shadow: 0 5px 0 #e0e0e0;
+      transition: transform 0.2s;
+    }
+
+    .question-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .question-number {
+      font-weight: 900;
+      color: var(--primary-purple);
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .question-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mcq-btn {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 14px;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #dee2e6;
+      transition: all 0.15s ease;
+      color: #495057;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mcq-btn:hover {
+      background: #fce4ec;
+      border-color: var(--primary-pink);
+      transform: scale(1.01);
+    }
+
+    .mcq-btn.correct {
+      background: var(--correct-color) !important;
+      color: white !important;
+      border-color: #00b853 !important;
+      box-shadow: 0 4px 0 #009624 !important;
+    }
+
+    .mcq-btn.wrong {
+      background: var(--wrong-color) !important;
+      color: white !important;
+      border-color: #d63031 !important;
+      box-shadow: 0 4px 0 #c0392b !important;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 15px;
+      background: #f3e5f5;
+      border-radius: 14px;
+      padding: 14px;
+      border-left: 5px solid var(--primary-purple);
+      font-size: 0.9rem;
+      animation: fadeIn 0.3s ease;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .exp-step-title {
+      font-weight: 800;
+      color: var(--primary-purple);
+      margin-top: 8px;
+    }
+
+    .btn-locate {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #fff;
+      color: #6a1b9a;
+      border: 2px solid #ab47bc;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 2px 0 #ab47bc;
+      transition: all 0.2s;
+    }
+
+    .btn-locate:hover {
+      background: #ab47bc;
+      color: white;
+    }
+
+    .action-bar {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn-submit-test {
+      background: linear-gradient(45deg, #FF4081, #7C4DFF);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 900;
+      padding: 12px 35px;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 5px 0 #c2185b;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-submit-test:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #c2185b;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-card {
+      background: #fff;
+      border-radius: 25px;
+      padding: 30px;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border: 4px solid var(--primary-pink);
+      animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-score {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--primary-purple);
+      margin: 12px 0;
+    }
+
+    .modal-badge {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #e91e63;
+      margin-bottom: 15px;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Header Bar -->
+  <header>
+    <div class="brand-title">
+      <h1>Ms Lê Hằng English</h1>
+      <h2>IELTS READING MOCK TEST</h2>
+    </div>
+
+    <div class="timer-container">
+      <span style="font-size: 1.1rem;">⏱️</span>
+      <div id="timerDisplay" class="timer-display">20:00</div>
+      <button id="btnTimerControl" class="btn-timer" onclick="toggleTimer()">BẮT ĐẦU TÍNH GIỜ LÀM BÀI</button>
+    </div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div style="padding: 0 20px; background: rgba(255,255,255,0.85);">
+    <div class="progress-bar-wrapper">
+      <div id="progressBarFill" class="progress-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Passage Tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(1)">Bài 1: Schooldays & Exams (Q27-Q30)</button>
+    <button class="tab-btn" onclick="switchTab(2)">Bài 2: My Dream Job (Q31-Q36)</button>
+    <button class="tab-btn" onclick="switchTab(3)">Bài 3: Visual Signs & Notices (Q37-Q38)</button>
+  </div>
+
+  <div class="main-container">
+
+    <!-- LEFT PANE: READING PASSAGES & VISUAL NOTICES (Cuộn riêng bên trái) -->
+    <div class="split-pane" id="passagePane">
+      
+      <!-- TAB 1 CONTENT: SCHOOLDAYS & EXAMS -->
+      <div id="passage1" class="passage-content">
+        <h2 class="passage-title">SECTION I: SCHOOLDAYS & EXAMS</h2>
+        
+        <div class="paragraph-block">
+          <p>
+            <span id="p1-s1" class="sentence">Many people say that schooldays are the best days of their life, and they often feel that (27) ____________ .</span> 
+            <span id="p1-s2" class="sentence">However, exams often make them unhappy, and many students prefer having no exams at all.</span> 
+            <span id="p1-s3" class="sentence">(28) ____________ .</span> 
+            <span id="p1-s4" class="sentence">Others, on the other hand, say that exams help students study better.</span> 
+            <span id="p1-s5" class="sentence">They will have to study throughout the year, and if they do well, they will become more interested in studying.</span>
+          </p>
+          <p style="margin-top:10px;">
+            <span id="p1-s6" class="sentence">(29) ____________ .</span> 
+            <span id="p1-s7" class="sentence">They say that they have to work hard for two months a year and so they have more time for their leisure activities.</span> 
+            <span id="p1-s8" class="sentence">They think that this is a better way of (30) ____________ .</span>
+          </p>
+
+          <div style="background:#fff8e1; border:2px solid #ffe082; padding:12px; border-radius:12px; margin-top:10px; font-size:0.9rem;">
+            <strong>Các cụm từ / câu lựa chọn để điền vào chỗ trống:</strong><br>
+            <strong>A.</strong> There are some students who prefer only final exams<br>
+            <strong>B.</strong> this should be a period of enjoyment<br>
+            <strong>C.</strong> assessing students' knowledge and ability in the subjects they are studying.<br>
+            <strong>D.</strong> They say the exams which they have to take often make them worried, and they have no time to relax
+          </div>
+
+          <button class="trans-toggle-btn" onclick="toggleTranslation('trans1')">🌟 Mở dịch đoạn này</button>
+          <div id="trans1" class="translation-text">
+            Nhiều người nói rằng những ngày đi học là khoảng thời gian đẹp nhất trong đời họ, và họ thường cảm thấy rằng đây nên là khoảng thời gian tận hưởng. Tuy nhiên, các kỳ thi thường làm họ không vui và nhiều học sinh thà không có kỳ thi nào cả. Họ nói các kỳ thi mà họ phải trải qua thường khiến họ lo lắng và họ không có thời gian thư giãn. Ngược lại, những người khác lại nói rằng các kỳ thi giúp học sinh học tốt hơn. Họ sẽ phải học tập trong suốt cả năm, và nếu làm tốt, họ sẽ trở nên hứng thú hơn với việc học. Có một số học sinh chỉ thích các kỳ thi cuối kỳ. Họ nói rằng họ chỉ phải học chăm chỉ trong 2 tháng một năm và do đó có nhiều thời gian hơn cho các hoạt động giải trí. Họ nghĩ rằng đây là một cách tốt hơn để đánh giá kiến thức và năng lực của học sinh trong các môn học mà họ đang theo học.
+          </div>
+        </div>
+
+        <!-- Glossary Bài 1 -->
+        <div class="glossary-section">
+          <div class="glossary-title">📖 Vocabulary Bank - Bài 1 (Schooldays & Exams)</div>
+          <table class="glossary-table">
+            <thead>
+              <tr><th>Word</th><th>POS</th><th>Vietnamese Meaning</th><th>Synonym / Context</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Schooldays</td><td>(n)</td><td>Thời học sinh, ngày đi học</td><td>Schooling years, youth</td></tr>
+              <tr><td>Enjoyment</td><td>(n)</td><td>Sự tận hưởng, niềm vui</td><td>Pleasure, delight, satisfaction</td></tr>
+              <tr><td>Worried</td><td>(adj)</td><td>Lo lắng, căng thẳng</td><td>Anxious, concerned, stressed</td></tr>
+              <tr><td>Throughout</td><td>(prep)</td><td>Xuyên suốt, trong suốt</td><td>All through, during whole period</td></tr>
+              <tr><td>Leisure activities</td><td>(n phr)</td><td>Hoạt động giải trí, rảnh rỗi</td><td>Recreational activities, hobbies</td></tr>
+              <tr><td>Assessing</td><td>(v-ing)</td><td>Đánh giá (kiến thức)</td><td>Evaluating, testing, appraising</td></tr>
+              <tr><td>Ability</td><td>(n)</td><td>Khả năng, năng lực</td><td>Capability, skill, aptitude</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 2 CONTENT: MY DREAM JOB -->
+      <div id="passage2" class="passage-content" style="display:none;">
+        <h2 class="passage-title">SECTION II: MY DREAM JOB</h2>
+        
+        <div class="paragraph-block">
+          <p>
+            <span id="p2-s1" class="sentence">Today, I want to share my thoughts about my dream job.</span> 
+            <span id="p2-s2" class="sentence">I've always dreamed of having a well-paid and creative job that challenges me.</span> 
+            <span id="p2-s3" class="sentence">I want to wake up every morning excited to go to work.</span> 
+            <span id="p2-s4" class="sentence">In my dream job, I imagine myself working as a graphic designer.</span> 
+            <span id="p2-s5" class="sentence">I love creating visually <strong>appealing</strong> designs and using my imagination to bring ideas to life.</span> 
+            <span id="p2-s6" class="sentence">I want to work in a dynamic and fast-paced environment where I can constantly learn and grow.</span> 
+            <span id="p2-s7" class="sentence">Although I know it will be demanding, I believe that the challenges will push me to become better and more innovative.</span> 
+            <span id="p2-s8" class="sentence">I want to work with a team that shares my passion for creativity and collaborates to create outstanding designs.</span> 
+            <span id="p2-s9" class="sentence">My dream job will allow me to express my artistic side while also providing financial stability.</span> 
+            <span id="p2-s10" class="sentence">I envision myself working on exciting projects, designing logos, websites, and advertisements for <strong>various</strong> clients.</span> 
+            <span id="p2-s11" class="sentence">I'm aware that achieving this dream job will require dedication, hard work, and continuous learning.</span> 
+            <span id="p2-s12" class="sentence">I'm determined to pursue it and make my dream a reality.</span>
+          </p>
+          <button class="trans-toggle-btn" onclick="toggleTranslation('trans2')">🌟 Mở dịch đoạn này</button>
+          <div id="trans2" class="translation-text">
+            Hôm nay, tôi muốn chia sẻ suy nghĩ của mình về công việc mơ ước. Tôi luôn mơ ước có một công việc được trả lương cao và sáng tạo, mang tính thử thách bản thân. Tôi muốn thức dậy mỗi buổi sáng với sự hào hứng đi làm. Trong công việc mơ ước của mình, tôi hình dung bản thân làm việc như một nhà thiết kế đồ họa. Tôi thích tạo ra các thiết kế bắt mắt về mặt thị giác và sử dụng trí tưởng tượng của mình để biến các ý tưởng thành hiện thực. Tôi muốn làm việc trong một môi trường năng động và tốc độ nhanh, nơi tôi có thể liên tục học hỏi và phát triển. Mặc dù biết công việc sẽ đòi hỏi khắt khe, tôi tin rằng những thử thách sẽ thúc đẩy tôi trở nên tốt hơn và sáng tạo hơn. Tôi muốn làm việc với một đội ngũ có cùng niềm đam mê sáng tạo và hợp tác để tạo ra những thiết kế xuất sắc. Công việc mơ ước sẽ cho phép tôi thể hiện khía cạnh nghệ thuật của mình đồng thời mang lại sự ổn định về tài chính. Tôi mường tượng bản thân làm việc trong các dự án thú vị, thiết kế logo, trang web và quảng cáo cho nhiều khách hàng khác nhau. Tôi nhận thức được rằng để đạt được công việc mơ ước này sẽ đòi hỏi sự tận tụy, chăm chỉ và học hỏi liên tục. Tôi quyết tâm theo đuổi nó và biến giấc mơ của mình thành hiện thực.
+          </div>
+        </div>
+
+        <!-- Glossary Bài 2 -->
+        <div class="glossary-section">
+          <div class="glossary-title">📖 Vocabulary Bank - Bài 2 (My Dream Job)</div>
+          <table class="glossary-table">
+            <thead>
+              <tr><th>Word</th><th>POS</th><th>Vietnamese Meaning</th><th>Synonym / Context</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Well-paid</td><td>(adj)</td><td>Được trả lương cao</td><td>Highly compensated, lucrative</td></tr>
+              <tr><td>Graphic designer</td><td>(n phr)</td><td>Nhà thiết kế đồ họa</td><td>Visual artist, designer</td></tr>
+              <tr><td>Appealing</td><td>(adj)</td><td>Bắt mắt, hấp dẫn, thu hút</td><td>Attractive, charming, catchy</td></tr>
+              <tr><td>Attractive</td><td>(adj)</td><td>Lôi cuốn (Đồng nghĩa appealing)</td><td>Appealing, engaging</td></tr>
+              <tr><td>Dynamic</td><td>(adj)</td><td>Năng động, sôi nổi</td><td>Energetic, active, lively</td></tr>
+              <tr><td>Demanding</td><td>(adj)</td><td>Đòi hỏi khắt khe, áp lực</td><td>Challenging, tough, rigorous</td></tr>
+              <tr><td>Innovative</td><td>(adj)</td><td>Táo bạo, đổi mới sáng tạo</td><td>Creative, inventive, original</td></tr>
+              <tr><td>Collaborate</td><td>(v)</td><td>Cộng tác, hợp tác</td><td>Work together, cooperate</td></tr>
+              <tr><td>Financial stability</td><td>(n phr)</td><td>Sự ổn định tài chính</td><td>Economic security</td></tr>
+              <tr><td>Various</td><td>(adj)</td><td>Đa dạng, nhiều khác nhau</td><td>Different, assorted, diverse</td></tr>
+              <tr><td>The same</td><td>(adj)</td><td>Giống nhau (Trái nghĩa various)</td><td>Identical, alike, uniform</td></tr>
+              <tr><td>Dedication</td><td>(n)</td><td>Sự tận tụy, cống hiến</td><td>Devotion, commitment</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 3 CONTENT: VISUAL SIGNS AND NOTICES -->
+      <div id="passage3" class="passage-content" style="display:none;">
+        <h2 class="passage-title">SECTION III: VISUAL SIGNS & NOTICES</h2>
+        
+        <!-- Sign 37: Handicapped Parking Permit Sign -->
+        <div class="sign-card-wrapper">
+          <div class="handicapped-sign">
+            <div class="handicapped-circle-red">
+              <span style="font-size:2.2rem; color:#d63031; font-weight:900;">P</span>
+            </div>
+            <div class="handicapped-icon-box">♿</div>
+            <div class="handicapped-text">BY PERMIT ONLY</div>
+          </div>
+          <p style="margin-top:8px; font-weight:800; color:#555;">Sign 37: Disabled Parking Permit Notice</p>
+        </div>
+
+        <!-- Notice 38: Mr Wright's English Lesson -->
+        <div class="sign-card-wrapper">
+          <div class="notice-note-card">
+            <strong>Mr Wright's English lesson today</strong> will be in Room 24D beside the language laboratory. He's off sick, so use the lesson to revise for the test.<br><br>
+            <em>Bring your workbooks!</em>
+          </div>
+          <p style="margin-top:8px; font-weight:800; color:#555;">Notice 38: Class Location & Teacher Notice</p>
+        </div>
+
+        <!-- Glossary Bài 3 -->
+        <div class="glossary-section">
+          <div class="glossary-title">📖 Vocabulary Bank - Bài 3 (Signs & Notices)</div>
+          <table class="glossary-table">
+            <thead>
+              <tr><th>Word</th><th>POS</th><th>Vietnamese Meaning</th><th>Synonym / Context</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Handicapped</td><td>(adj)</td><td>Người khuyết tật</td><td>Disabled, impaired</td></tr>
+              <tr><td>Permit</td><td>(n)</td><td>Giấy phép, sự cho phép</td><td>License, authorization, pass</td></tr>
+              <tr><td>Off sick</td><td>(adj phr)</td><td>Nghỉ do bị ốm</td><td>On sick leave, unwell</td></tr>
+              <tr><td>Revise</td><td>(v)</td><td>Ôn tập (bài học/bài kiểm tra)</td><td>Review, study, brush up</td></tr>
+              <tr><td>Workbook</td><td>(n)</td><td>Sách bài tập</td><td>Exercise book, activity book</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANE: INTERACTIVE EXERCISES (Cuộn riêng bên phải) -->
+    <div class="split-pane" id="exercisePane">
+      
+      <!-- CÂU HỎI BÀI 1 (TAB 1) -->
+      <div id="exerciseTab1" class="exercise-tab-content">
+        <h3 style="color:var(--primary-purple); margin-bottom:15px;">SECTION I: SCHOOLDAYS & EXAMS (QUESTIONS 27 - 30)</h3>
+
+        <!-- Q27 -->
+        <div class="question-card" id="qcard-27">
+          <div class="question-number">Question 27 (Sentence Insertion)</div>
+          <div class="question-text">Many people say that schooldays are the best days of their life, and they often feel that (27) ____________ .</div>
+          <div class="mcq-options" id="opts-27" data-correct="B">
+            <button class="mcq-btn" onclick="checkMCQ('27', 'A', 'B')">A. There are some students who prefer only final exams</button>
+            <button class="mcq-btn" onclick="checkMCQ('27', 'B', 'B')">B. this should be a period of enjoyment</button>
+            <button class="mcq-btn" onclick="checkMCQ('27', 'C', 'B')">C. assessing students' knowledge and ability in the subjects they are studying.</button>
+            <button class="mcq-btn" onclick="checkMCQ('27', 'D', 'B')">D. They say the exams which they have to take often make them worried, and they have no time to relax</button>
+          </div>
+          <div class="explanation-box" id="exp-27">
+            <div class="exp-step-title">1. Phân tích 4 đáp án lựa chọn:</div>
+            <p>A. Có một số học sinh chỉ thích các kỳ thi cuối kỳ.</p>
+            <p>B. Đây nên là một khoảng thời gian tận hưởng (this should be a period of enjoyment).</p>
+            <p>C. Đánh giá kiến thức và năng lực của học sinh trong các môn học...</p>
+            <p>D. Họ nói các kỳ thi khiến họ lo lắng và không có thời gian thư giãn.</p>
+            <div class="exp-step-title">2. Dịch nghĩa vế câu tại chỗ trống (27):</div>
+            <p>"Nhiều người nói rằng những ngày đi học là khoảng thời gian đẹp nhất trong đời họ, và họ thường cảm thấy rằng [đây nên là khoảng thời gian tận hưởng]."</p>
+            <div class="exp-step-title">3. Tại sao chọn B?</div>
+            <p>Vế trước nhắc tới "best days of their life" (khoảng thời gian đẹp nhất đời), do đó câu B "this should be a period of enjoyment" tiếp nối mạch cảm xúc tích cực về quãng đời học sinh trước khi chuyển sang từ nối đối lập "However, exams..." ở câu sau -> Chọn B.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A, C, D đều đề cập trực tiếp đến thi cử (exams/assessing), trong khi câu tiếp theo mới bắt đầu dùng "However, exams..." để chuyển ý sang chủ đề thi cử.</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s1')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q28 -->
+        <div class="question-card" id="qcard-28">
+          <div class="question-number">Question 28 (Sentence Insertion)</div>
+          <div class="question-text">...many students prefer having no exams at all. (28) ____________ . Others, on the other hand, say...</div>
+          <div class="mcq-options" id="opts-28" data-correct="D">
+            <button class="mcq-btn" onclick="checkMCQ('28', 'A', 'D')">A. There are some students who prefer only final exams</button>
+            <button class="mcq-btn" onclick="checkMCQ('28', 'B', 'D')">B. this should be a period of enjoyment</button>
+            <button class="mcq-btn" onclick="checkMCQ('28', 'C', 'D')">C. assessing students' knowledge and ability in the subjects they are studying.</button>
+            <button class="mcq-btn" onclick="checkMCQ('28', 'D', 'D')">D. They say the exams which they have to take often make them worried, and they have no time to relax</button>
+          </div>
+          <div class="explanation-box" id="exp-28">
+            <div class="exp-step-title">1. Phân tích 4 đáp án lựa chọn:</div>
+            <p>D. Họ nói các kỳ thi mà họ phải trải qua thường khiến họ lo lắng và họ không có thời gian thư giãn (They say the exams... make them worried...).</p>
+            <div class="exp-step-title">2. Dịch nghĩa vế câu tại chỗ trống (28):</div>
+            <p>"...nhiều học sinh thà không có kỳ thi nào cả. [Họ nói các kỳ thi mà họ phải trải qua thường khiến họ lo lắng, và họ không có thời gian thư giãn]. Ngược lại, những người khác lại nói rằng..."</p>
+            <div class="exp-step-title">3. Tại sao chọn D?</div>
+            <p>Câu trước đang giải thích thái độ không thích thi cử của học sinh ("prefer having no exams at all"). Câu D tiếp tục đưa ra tác hại/lý do làm họ sợ thi (make them worried, no time to relax). Sau đó liên từ "Others, on the other hand" mới đưa ra quan điểm trái ngược -> Chọn D.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A nói về thi cuối kỳ chưa hợp lý. B đã điền ở câu 27. C là cụm từ bổ ngữ không đứng làm câu độc lập.</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s3')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q29 -->
+        <div class="question-card" id="qcard-29">
+          <div class="question-number">Question 29 (Sentence Insertion)</div>
+          <div class="question-text">(29) ____________ . They say that they have to work hard for two months a year...</div>
+          <div class="mcq-options" id="opts-29" data-correct="A">
+            <button class="mcq-btn" onclick="checkMCQ('29', 'A', 'A')">A. There are some students who prefer only final exams</button>
+            <button class="mcq-btn" onclick="checkMCQ('29', 'B', 'A')">B. this should be a period of enjoyment</button>
+            <button class="mcq-btn" onclick="checkMCQ('29', 'C', 'A')">C. assessing students' knowledge and ability in the subjects they are studying.</button>
+            <button class="mcq-btn" onclick="checkMCQ('29', 'D', 'A')">D. They say the exams which they have to take often make them worried, and they have no time to relax</button>
+          </div>
+          <div class="explanation-box" id="exp-29">
+            <div class="exp-step-title">1. Phân tích 4 đáp án lựa chọn:</div>
+            <p>A. Có một số học sinh chỉ thích các kỳ thi cuối kỳ (There are some students who prefer only final exams).</p>
+            <div class="exp-step-title">2. Dịch nghĩa vế câu tại chỗ trống (29):</div>
+            <p>"[Có một số học sinh chỉ thích các kỳ thi cuối kỳ]. Họ nói rằng họ chỉ phải học chăm chỉ trong 2 tháng một năm và do đó có nhiều thời gian hơn cho các hoạt động giải trí."</p>
+            <div class="exp-step-title">3. Tại sao chọn A?</div>
+            <p>Chi tiết "work hard for two months a year" (chỉ cần học vất vả 2 tháng trong năm) giải thích rõ cho quan điểm chỉ muốn thi kỳ thi cuối kỳ (prefer only final exams) -> Chọn A.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>B và D đã điền ở 27 & 28. C là cụm vị ngữ chưa có chủ ngữ nên không thể đứng đầu câu văn độc lập.</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s6')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q30 -->
+        <div class="question-card" id="qcard-30">
+          <div class="question-number">Question 30 (Sentence Insertion)</div>
+          <div class="question-text">They think that this is a better way of (30) ____________ .</div>
+          <div class="mcq-options" id="opts-30" data-correct="C">
+            <button class="mcq-btn" onclick="checkMCQ('30', 'A', 'C')">A. There are some students who prefer only final exams</button>
+            <button class="mcq-btn" onclick="checkMCQ('30', 'B', 'C')">B. this should be a period of enjoyment</button>
+            <button class="mcq-btn" onclick="checkMCQ('30', 'C', 'C')">C. assessing students' knowledge and ability in the subjects they are studying.</button>
+            <button class="mcq-btn" onclick="checkMCQ('30', 'D', 'C')">D. They say the exams which they have to take often make them worried, and they have no time to relax</button>
+          </div>
+          <div class="explanation-box" id="exp-30">
+            <div class="exp-step-title">1. Phân tích ngữ pháp:</div>
+            <p>Đứng sau cụm giới từ "a better way of..." là một danh từ hoặc danh động từ (V-ing).</p>
+            <div class="exp-step-title">2. Dịch nghĩa vế câu tại chỗ trống (30):</div>
+            <p>"Họ nghĩ rằng đây là một cách tốt hơn để [đánh giá kiến thức và năng lực của học sinh trong các môn học mà họ đang theo học]."</p>
+            <div class="exp-step-title">3. Tại sao chọn C?</div>
+            <p>Cụm danh động từ "assessing students' knowledge and ability..." hoàn thiện cấu trúc "way of V-ing" một cách chuẩn xác ngữ pháp và ý nghĩa -> Chọn C.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A, B, D đều là các mệnh đề/câu hoàn chỉnh, không thể đứng làm tân ngữ sau giới từ "of".</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s8')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU HỎI BÀI 2 (TAB 2) -->
+      <div id="exerciseTab2" class="exercise-tab-content" style="display:none;">
+        <h3 style="color:var(--primary-purple); margin-bottom:15px;">SECTION II: MY DREAM JOB (QUESTIONS 31 - 36)</h3>
+
+        <!-- Q31 -->
+        <div class="question-card" id="qcard-31">
+          <div class="question-number">Question 31 (Main Idea)</div>
+          <div class="question-text">What is the main idea of the passage?</div>
+          <div class="mcq-options" id="opts-31" data-correct="C">
+            <button class="mcq-btn" onclick="checkMCQ('31', 'A', 'C')">A. A person's new job</button>
+            <button class="mcq-btn" onclick="checkMCQ('31', 'B', 'C')">B. The advantages of having a dream job</button>
+            <button class="mcq-btn" onclick="checkMCQ('31', 'C', 'C')">C. A person's dream job</button>
+            <button class="mcq-btn" onclick="checkMCQ('31', 'D', 'C')">D. The challenges when doing a job</button>
+          </div>
+          <div class="explanation-box" id="exp-31">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Công việc mới của một người.</p>
+            <p>B. Những lợi ích của việc có một công việc mơ ước.</p>
+            <p>C. Công việc mơ ước của một người (A person's dream job).</p>
+            <p>D. Những thử thách khi làm một công việc.</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Ý chính của đoạn văn là gì?"</p>
+            <div class="exp-step-title">3. Tại sao chọn C?</div>
+            <p>Câu mở đầu khẳng định: "Today, I want to share my thoughts about my dream job" và xuyên suốt đoạn văn miêu tả chi tiết về công việc mơ ước trở thành graphic designer -> Main idea là "A person's dream job" -> Chọn C.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A sai vì tác giả chưa có việc mới. B và D chỉ là các khía cạnh nhỏ được nhắc tới, không phải chủ đề bao quát.</p>
+            <button class="btn-locate" onclick="locateEvidence('p2-s1')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q32 -->
+        <div class="question-card" id="qcard-32">
+          <div class="question-number">Question 32</div>
+          <div class="question-text">What's the author's dream job?</div>
+          <div class="mcq-options" id="opts-32" data-correct="A">
+            <button class="mcq-btn" onclick="checkMCQ('32', 'A', 'A')">A. graphic designer</button>
+            <button class="mcq-btn" onclick="checkMCQ('32', 'B', 'A')">B. doctor</button>
+            <button class="mcq-btn" onclick="checkMCQ('32', 'C', 'A')">C. engineer</button>
+            <button class="mcq-btn" onclick="checkMCQ('32', 'D', 'A')">D. fashion designer</button>
+          </div>
+          <div class="explanation-box" id="exp-32">
+            <div class="exp-step-title">1. Phân tích 4 đáp án nghề nghiệp:</div>
+            <p>A. graphic designer: nhà thiết kế đồ họa.</p>
+            <p>B. doctor: bác sĩ.</p>
+            <p>C. engineer: kỹ sư.</p>
+            <p>D. fashion designer: nhà thiết kế thời trang.</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Công việc mơ ước của tác giả là gì?"</p>
+            <div class="exp-step-title">3. Tại sao chọn A?</div>
+            <p>Dẫn chứng câu 4 bài đọc: "In my dream job, I imagine myself working as a graphic designer" -> Chọn A.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>Bác sĩ, kỹ sư, nhà thiết kế thời trang không xuất hiện trong bài đọc.</p>
+            <button class="btn-locate" onclick="locateEvidence('p2-s4')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q33 -->
+        <div class="question-card" id="qcard-33">
+          <div class="question-number">Question 33</div>
+          <div class="question-text">What does the author want her team to have?</div>
+          <div class="mcq-options" id="opts-33" data-correct="D">
+            <button class="mcq-btn" onclick="checkMCQ('33', 'A', 'D')">A. Passion for imagination</button>
+            <button class="mcq-btn" onclick="checkMCQ('33', 'B', 'D')">B. A lot of creative projects</button>
+            <button class="mcq-btn" onclick="checkMCQ('33', 'C', 'D')">C. Dynamic personalities</button>
+            <button class="mcq-btn" onclick="checkMCQ('33', 'D', 'D')">D. Passion for creativity</button>
+          </div>
+          <div class="explanation-box" id="exp-33">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Niềm đam mê tưởng tượng.</p>
+            <p>B. Rất nhiều dự án sáng tạo.</p>
+            <p>C. Tính cách năng động.</p>
+            <p>D. Niềm đam mê sáng tạo (Passion for creativity).</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Tác giả muốn đội ngũ đồng nghiệp (team) của mình có điều gì?"</p>
+            <div class="exp-step-title">3. Tại sao chọn D?</div>
+            <p>Dẫn chứng câu 8 bài đọc: "I want to work with a team that shares my passion for creativity..." -> Chọn D.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A nhầm từ "imagination". B và C không phải đặc điểm tâm niệm mong muốn ở nhóm đồng nghiệp.</p>
+            <button class="btn-locate" onclick="locateEvidence('p2-s8')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q34 -->
+        <div class="question-card" id="qcard-34">
+          <div class="question-number">Question 34 (Vocabulary - Closest)</div>
+          <div class="question-text">The word "appealing" is CLOSEST in meaning to ____________ .</div>
+          <div class="mcq-options" id="opts-34" data-correct="C">
+            <button class="mcq-btn" onclick="checkMCQ('34', 'A', 'C')">A. creative</button>
+            <button class="mcq-btn" onclick="checkMCQ('34', 'B', 'C')">B. dynamic</button>
+            <button class="mcq-btn" onclick="checkMCQ('34', 'C', 'C')">C. attractive</button>
+            <button class="mcq-btn" onclick="checkMCQ('34', 'D', 'C')">D. exciting</button>
+          </div>
+          <div class="explanation-box" id="exp-34">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. creative (adj): sáng tạo.</p>
+            <p>B. dynamic (adj): năng động.</p>
+            <p>C. attractive (adj): lôi cuốn, thu hút, bắt mắt.</p>
+            <p>D. exciting (adj): thú vị.</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Từ 'appealing' (bắt mắt/lôi cuốn) GẦN NGHĨA NHẤT với từ nào?"</p>
+            <div class="exp-step-title">3. Tại sao chọn C?</div>
+            <p>Appealing = hấp dẫn, thu hút về mặt thị giác = attractive -> Chọn C.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>Creative, dynamic, exciting không mang ý nghĩa bắt mắt thu hút về mặt ngoại hình/thị giác thiết kế như appealing.</p>
+            <button class="btn-locate" onclick="locateEvidence('p2-s5')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q35 -->
+        <div class="question-card" id="qcard-35">
+          <div class="question-number">Question 35</div>
+          <div class="question-text">What does she need to achieve her dream job?</div>
+          <div class="mcq-options" id="opts-35" data-correct="C">
+            <button class="mcq-btn" onclick="checkMCQ('35', 'A', 'C')">A. Luck and chance</button>
+            <button class="mcq-btn" onclick="checkMCQ('35', 'B', 'C')">B. Connections and networking</button>
+            <button class="mcq-btn" onclick="checkMCQ('35', 'C', 'C')">C. Dedication, hard work, and continuous learning</button>
+            <button class="mcq-btn" onclick="checkMCQ('35', 'D', 'C')">D. A lot of money</button>
+          </div>
+          <div class="explanation-box" id="exp-35">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. May mắn và cơ hội.</p>
+            <p>B. Mối quan hệ xã hội.</p>
+            <p>C. Sự tận tụy, chăm chỉ và học hỏi liên tục (Dedication, hard work, and continuous learning).</p>
+            <p>D. Rất nhiều tiền.</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Cô ấy cần gì để đạt được công việc mơ ước của mình?"</p>
+            <div class="exp-step-title">3. Tại sao chọn C?</div>
+            <p>Dẫn chứng câu 11 bài đọc: "...achieving this dream job will require dedication, hard work, and continuous learning" -> Chọn C.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A, B, D không được nhắc đến là các yếu tố bắt buộc cần thiết trong bài đọc.</p>
+            <button class="btn-locate" onclick="locateEvidence('p2-s11')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q36 -->
+        <div class="question-card" id="qcard-36">
+          <div class="question-number">Question 36 (Vocabulary - Opposite)</div>
+          <div class="question-text">The word "various" is OPPOSITE in meaning to ____________ .</div>
+          <div class="mcq-options" id="opts-36" data-correct="B">
+            <button class="mcq-btn" onclick="checkMCQ('36', 'A', 'B')">A. different</button>
+            <button class="mcq-btn" onclick="checkMCQ('36', 'B', 'B')">B. the same</button>
+            <button class="mcq-btn" onclick="checkMCQ('36', 'C', 'B')">C. honest</button>
+            <button class="mcq-btn" onclick="checkMCQ('36', 'D', 'B')">D. nervous</button>
+          </div>
+          <div class="explanation-box" id="exp-36">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. different (adj): khác nhau (từ đồng nghĩa).</p>
+            <p>B. the same (adj): giống nhau, trùng lặp (từ trái nghĩa).</p>
+            <p>C. honest (adj): trung thực.</p>
+            <p>D. nervous (adj): lo lắng.</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Từ 'various' (nhiều/đa dạng) TRÁI NGHĨA (OPPOSITE) với từ nào?"</p>
+            <div class="exp-step-title">3. Tại sao chọn B?</div>
+            <p>Various = đa dạng, nhiều khác nhau. Từ trái nghĩa hoàn toàn là "the same" (giống nhau) -> Chọn B.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>Different là từ đồng nghĩa. Honest và nervous không liên quan đến mức độ đa dạng.</p>
+            <button class="btn-locate" onclick="locateEvidence('p2-s10')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU HỎI BÀI 3 (TAB 3) -->
+      <div id="exerciseTab3" class="exercise-tab-content" style="display:none;">
+        <h3 style="color:var(--primary-purple); margin-bottom:15px;">SECTION III: VISUAL SIGNS & NOTICES (QUESTIONS 37 - 38)</h3>
+
+        <!-- Q37 -->
+        <div class="question-card" id="qcard-37">
+          <div class="question-number">Question 37 (Sign Comprehension)</div>
+          <div class="question-text">What does this sign mean? (Red crossed 'P' with Wheelchair & "BY PERMIT ONLY")</div>
+          <div class="mcq-options" id="opts-37" data-correct="A">
+            <button class="mcq-btn" onclick="checkMCQ('37', 'A', 'A')">A. Only handicapped people with a permit can park here.</button>
+            <button class="mcq-btn" onclick="checkMCQ('37', 'B', 'A')">B. Nobody can park here, including handicapped drivers.</button>
+            <button class="mcq-btn" onclick="checkMCQ('37', 'C', 'A')">C. Any handicapped driver can park in this area.</button>
+            <button class="mcq-btn" onclick="checkMCQ('37', 'D', 'A')">D. Everyone can park here, except for handicapped people.</button>
+          </div>
+          <div class="explanation-box" id="exp-37">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Chỉ người khuyết tật có giấy phép mới được đỗ xe ở đây.</p>
+            <p>B. Không ai được đỗ xe ở đây, kể cả tài xế khuyết tật.</p>
+            <p>C. Bất kỳ tài xế khuyết tật nào cũng được đỗ xe ở đây (thiếu điều kiện giấy phép).</p>
+            <p>D. Mọi người đều được đỗ xe trừ người khuyết tật.</p>
+            <div class="exp-step-title">2. Dịch nghĩa biển báo:</div>
+            <p>Biển báo có hình gạch chéo đỏ lên chữ P (cấm đỗ xe chung), nhưng bên dưới có biểu tượng xe lăn kèm dòng chữ "BY PERMIT ONLY" (Chỉ dành cho người có giấy phép).</p>
+            <div class="exp-step-title">3. Tại sao chọn A?</div>
+            <p>Biển báo cấm đỗ xe chung ngoại trừ trường hợp người khuyết tật có giấy phép được phép đỗ ("Only handicapped people with a permit can park here") -> Chọn A.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>B sai vì vẫn cho phép người có giấy phép đỗ. C sai vì thiếu điều kiện "có giấy phép" (with a permit). D ngược nghĩa hoàn toàn.</p>
+          </div>
+        </div>
+
+        <!-- Q38 -->
+        <div class="question-card" id="qcard-38">
+          <div class="question-number">Question 38 (Notice Comprehension)</div>
+          <div class="question-text">What does this notice mean? (Mr Wright's English lesson... He's off sick...)</div>
+          <div class="mcq-options" id="opts-38" data-correct="C">
+            <button class="mcq-btn" onclick="checkMCQ('38', 'A', 'C')">A. The English class must take their workbooks to the language laboratory.</button>
+            <button class="mcq-btn" onclick="checkMCQ('38', 'B', 'C')">B. The room for English lessons is changing because of the test.</button>
+            <button class="mcq-btn" onclick="checkMCQ('38', 'C', 'C')">C. The usual English teacher cannot attend today's lesson.</button>
+            <button class="mcq-btn" onclick="checkMCQ('38', 'D', 'C')">D. Mr. Wright is waiting for his English students and will help them revise for the test</button>
+          </div>
+          <div class="explanation-box" id="exp-38">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Lớp tiếng Anh phải mang sách bài tập đến phòng lab ngôn ngữ.</p>
+            <p>B. Phòng học tiếng Anh thay đổi do có bài kiểm tra.</p>
+            <p>C. Giáo viên tiếng Anh thường ngày không thể tham dự buổi học hôm nay (The usual English teacher cannot attend today's lesson).</p>
+            <p>D. Thầy Wright đang đợi học sinh và sẽ giúp họ ôn tập.</p>
+            <div class="exp-step-title">2. Dịch nghĩa thông báo:</div>
+            <p>"Tiết học tiếng Anh của thầy Wright hôm nay sẽ ở Phòng 24D bên cạnh phòng lab ngôn ngữ. Thầy ấy bị ốm nghỉ làm (He's off sick), vì vậy hãy dùng tiết học để tự ôn tập cho bài kiểm tra. Hãy mang theo sách bài tập!"</p>
+            <div class="exp-step-title">3. Tại sao chọn C?</div>
+            <p>Cụm "He's off sick" (Thầy Wright bị ốm nghỉ) đồng nghĩa trực tiếp với việc giáo viên thường ngày không thể dạy học hôm nay ("The usual English teacher cannot attend today's lesson") -> Chọn C.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A sai địa điểm (ở phòng 24D cạnh phòng lab chứ không phải trong lab). B sai nguyên nhân đổi phòng (đổi vì thầy ốm). D sai vì thầy ốm nghỉ không có ở trường.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Bar Submit -->
+      <div class="action-bar">
+        <button class="btn-submit-test" onclick="submitTest()">🏆 NỘP BÀI THI</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Score Modal -->
+  <div class="modal-overlay" id="scoreModal">
+    <div class="modal-card">
+      <h2 style="color: var(--primary-purple); font-size: 1.8rem;">🎉 KẾT QUẢ BÀI THI 🎉</h2>
+      <div class="modal-score" id="scoreValue">0 / 12</div>
+      <div class="modal-badge" id="scoreBadge">THIÊN TÀI IELTS 9.0!</div>
+      <p id="scoreComment" style="color: #555; line-height: 1.5; font-weight: 700;">Em làm bài rất tuyệt vời!</p>
+      <button class="btn-submit-test" style="margin-top: 20px; font-size: 0.95rem; padding: 10px 25px;" onclick="closeModal()">ĐÓNG & XEM LẠI BÀI</button>
+    </div>
+  </div>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playCorrectSound() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.12);
+      osc.frequency.exponentialRampToValueAtTime(783.99, audioCtx.currentTime + 0.25);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.35);
+    }
+
+    function playWrongSound() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(130.81, audioCtx.currentTime + 0.25);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.3);
+    }
+
+    let totalQuestions = 12;
+    let userAnswers = {};
+    let timerSeconds = 20 * 60;
+    let timerInterval = null;
+    let isTimerRunning = false;
+
+    function toggleTimer() {
+      const btn = document.getElementById('btnTimerControl');
+      if (!isTimerRunning) {
+        isTimerRunning = true;
+        btn.innerText = "TẠM DỪNG";
+        btn.style.background = "#ff9800";
+        timerInterval = setInterval(updateTimer, 1000);
+      } else {
+        isTimerRunning = false;
+        btn.innerText = "TIẾP TỤC";
+        btn.style.background = "#4caf50";
+        clearInterval(timerInterval);
+      }
+    }
+
+    function updateTimer() {
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        document.getElementById('timerDisplay').innerText = "00:00";
+        alert("⏰ Đã hết giờ làm bài, vui lòng nộp bài nhé!");
+        disableInputs();
+        submitTest();
+        return;
+      }
+      timerSeconds--;
+      let m = Math.floor(timerSeconds / 60);
+      let s = timerSeconds % 60;
+      document.getElementById('timerDisplay').innerText = 
+        `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+    }
+
+    function disableInputs() {
+      document.querySelectorAll('input, select, button.mcq-btn').forEach(el => {
+        el.disabled = true;
+      });
+    }
+
+    // CHUYỂN TAB ĐỘC LẬP TỪNG BÀI
+    function switchTab(tabIndex) {
+      document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === tabIndex);
+      });
+
+      document.querySelectorAll('.passage-content').forEach((p, idx) => {
+        p.style.display = (idx + 1 === tabIndex) ? 'block' : 'none';
+      });
+
+      document.querySelectorAll('.exercise-tab-content').forEach((ex, idx) => {
+        ex.style.display = (idx + 1 === tabIndex) ? 'block' : 'none';
+      });
+
+      document.getElementById('passagePane').scrollTop = 0;
+      document.getElementById('exercisePane').scrollTop = 0;
+    }
+
+    function toggleTranslation(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function updateProgress() {
+      let count = Object.keys(userAnswers).length;
+      let pct = (count / totalQuestions) * 100;
+      document.getElementById('progressBarFill').style.width = pct + '%';
+    }
+
+    function checkMCQ(qKey, chosenOptKey, correctOptKey) {
+      const container = document.getElementById(`opts-${qKey}`);
+      const btns = container.querySelectorAll('.mcq-btn');
+      const exp = document.getElementById(`exp-${qKey}`);
+
+      btns.forEach(btn => btn.disabled = true);
+      exp.style.display = 'block';
+
+      btns.forEach(btn => {
+        let optText = btn.innerText.trim();
+        let isChosen = optText.startsWith(chosenOptKey);
+        let isCorrect = optText.startsWith(correctOptKey);
+
+        if (isChosen) {
+          if (chosenOptKey === correctOptKey) {
+            btn.classList.add('correct');
+            playCorrectSound();
+            userAnswers[qKey] = true;
+            launchConfetti();
+          } else {
+            btn.classList.add('wrong');
+            playWrongSound();
+            userAnswers[qKey] = false;
+          }
+        }
+        if (isCorrect && chosenOptKey !== correctOptKey) {
+          btn.classList.add('correct');
+        }
+      });
+      updateProgress();
+    }
+
+    function locateEvidence(sentenceId) {
+      if (sentenceId.startsWith('p1')) switchTab(1);
+      else if (sentenceId.startsWith('p2')) switchTab(2);
+      else if (sentenceId.startsWith('p3')) switchTab(3);
+
+      document.querySelectorAll('.sentence').forEach(s => s.classList.remove('sentence-target'));
+      const target = document.getElementById(sentenceId);
+      if (target) {
+        target.classList.add('sentence-target');
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    document.addEventListener('mouseup', function() {
+      const selection = window.getSelection();
+      if (!selection.isCollapsed && selection.toString().trim().length > 0) {
+        const range = selection.getRangeAt(0);
+        const span = document.createElement('span');
+        span.className = 'custom-highlight';
+        try {
+          range.surroundContents(span);
+        } catch (e) {}
+      }
+    });
+
+    function shuffleOptionsOnLoad() {
+      document.querySelectorAll('.mcq-options').forEach(container => {
+        const buttons = Array.from(container.children);
+        for (let i = buttons.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
+        }
+        buttons.forEach(btn => container.appendChild(btn));
+      });
+    }
+
+    function submitTest() {
+      let score = 0;
+      for (let k in userAnswers) {
+        if (userAnswers[k] === true) score++;
+      }
+
+      document.getElementById('scoreValue').innerText = `${score} / ${totalQuestions}`;
+      const badge = document.getElementById('scoreBadge');
+      const comment = document.getElementById('scoreComment');
+
+      let pct = (score / totalQuestions) * 100;
+      if (pct === 100) {
+        badge.innerText = "🏆 THIÊN TÀI IELTS 9.0!";
+        comment.innerText = "Xuất sắc tuyệt đối! Em đã làm đúng 100% toàn bộ bài thi!";
+      } else if (pct >= 70) {
+        badge.innerText = "🌟 LÀM TỐT LẮM!";
+        comment.innerText = "Kỹ năng đọc hiểu rất ấn tượng! Đọc lại giải thích 4 bước để đạt điểm tuyệt đối nhé!";
+      } else if (pct >= 50) {
+        badge.innerText = "👍 KHÁ TỐT!";
+        comment.innerText = "Em đã làm tương đối tốt. Hãy đọc kỹ lại phần giải thích để cải thiện các câu làm sai!";
+      } else {
+        badge.innerText = "💪 CỐ LÊN NHÉ!";
+        comment.innerText = "Đừng nản lòng! Đọc kỹ các câu dịch và từ vựng mở rộng để sẵn sàng cho bài học tiếp theo!";
+      }
+
+      document.getElementById('scoreModal').style.display = 'flex';
+      launchConfetti();
+    }
+
+    function closeModal() {
+      document.getElementById('scoreModal').style.display = 'none';
+    }
+
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      let pieces = [];
+      const colors = ['#ff80ab', '#8854c0', '#00D26A', '#FDCB6E', '#00C9A7'];
+      
+      for (let i = 0; i < 70; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: Math.random() * 4 + 2,
+          rotation: Math.random() * 360,
+          rotSpeed: Math.random() * 6 - 3
+        });
+      }
+
+      let animationFrame;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.y += p.speed;
+          p.rotation += p.rotSpeed;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
+        });
+        pieces = pieces.filter(p => p.y < canvas.height);
+        if (pieces.length > 0) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          cancelAnimationFrame(animationFrame);
+        }
+      }
+      animate();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      shuffleOptionsOnLoad();
+    });
+  </script>
+</body>
+</html>
